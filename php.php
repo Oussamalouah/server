@@ -4,24 +4,30 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
 <body>
+   <div class = "container">
     <form  method ="get">
-    <input type="number" name="num1" >
-    <input type="number"name="num2" >
-    <input type="submit" name="submit" value="submit">
-    <select name="calibre">
-                            <option>-- select calibre--</option>
+    <div class = "content">
+    <input type="number" class = "num1" name="num1" >
+    <input type="number" class = "num1" name="num2" >
+    <input type="submit"  class = "submit" name="submit" value="submit">
+    <select name="calibre" class = "calibre">
+                            <option> select calibre</option>
                             <option value="22,65">5-10</option>
                             <option value="37,05">15-20</option>
                             <option value="46,20">>30 </option>
                         </select>
                         
-    </form>
+         </div>              
+         </form>
+    </div> 
     <?php
+    
     // when click submit calculate the numbers
-      $result = $_GET['num1']-$_GET['num2'];
+    $result = $_GET['num1']-$_GET['num2'];
       $tk1 = 0.794;
       $tk2 = 0.883;
       $tk3 = 0.9451;
@@ -33,7 +39,7 @@
    //   tranch algorithme
          if($result <=100){
             echo "<br>";
-            echo $result *$tk1;
+            echo $result *$tk1+$_GET['calibre'];
          }
          if($result <=150 and $result >=101){
              echo "<br>";
@@ -42,11 +48,11 @@
              echo "<br>";
              echo ($result -100) * $tk2;
              echo "<br>";
-             echo ($result -510) * $tk2 +$tr1;
+             echo ($result -100) * $tk2 +$tr1+$_GET['calibre'];
             
          }
          if($result <=210 and $result >=151){
-            echo $result + $tk3;
+            echo $result * $tk3;
          }
          if($result <=310 and $result >=211){
             echo "<br>";
@@ -55,7 +61,7 @@
             echo "<br>";
             echo ($result -210) * $tk4;
             echo "<br>";
-            echo ($result -510) * $tk4+$tr4;
+            echo ($result -210) * $tk4+$tr4+$_GET['calibre'];
          }
          
          if($result <=510 and $result >=311){
@@ -65,7 +71,7 @@
             echo "<br>";
             echo ($result -310) * $tk5;
             echo "<br>";
-            echo ($result -310) * $tk5 +$tr5;
+            echo ($result -310) * $tk5 +$tr5+$_GET['calibre'];
          }
          if($result >=511){
             echo "<br>";
@@ -74,13 +80,16 @@
             echo "<br>";
             echo ($result -510) * $tk6;
             echo "<br>";
-            echo ($result -510) * $tk6 +$tr6+($_GET['calibre']);
+            echo ($result -510) * $tk6 +$tr6+$_GET['calibre'];
            
          }
          
          
      }
  ?>
+ <style>
+    <?php include('style.css'); ?>
+   </style>
 
 
 </body>
