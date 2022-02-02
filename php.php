@@ -52,36 +52,18 @@
             
          }
          if($result <=210 and $result >=151){
-            echo $result * $tk3;
+            echo $result * $tk3; +$_GET['calibre']
          }
          if($result <=310 and $result >=211){
-            echo "<br>";
-            $tr4=210 * $tk3;
-            echo $tr4;
-            echo "<br>";
-            echo ($result -210) * $tk4;
-            echo "<br>";
-            echo ($result -210) * $tk4+$tr4+$_GET['calibre'];
+            echo $result * $tk4; +$_GET['calibre']
+           
          }
          
          if($result <=510 and $result >=311){
-            echo "<br>";
-            $tr5=310 * $tk4;
-            echo $tr5;
-            echo "<br>";
-            echo ($result -310) * $tk5;
-            echo "<br>";
-            echo ($result -310) * $tk5 +$tr5+$_GET['calibre'];
+            echo $result * $tk5; +$_GET['calibre']
          }
          if($result >=511){
-            echo "<br>";
-            $tr6=510 * $tk5;
-            echo $tr6;
-            echo "<br>";
-            echo ($result -510) * $tk6;
-            echo "<br>";
-            echo ($result -510) * $tk6 +$tr6+$_GET['calibre'];
-           
+            echo $result * $tk6; +$_GET['calibre']
          }
          
          
