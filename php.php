@@ -27,6 +27,7 @@
     <?php
     
     // when click submit calculate the numbers
+    error_reporting(0);
     $result = $_GET['num1']-$_GET['num2'];
       $tk1 = 0.794;
       $tk2 = 0.883;
@@ -35,41 +36,45 @@
       $tk5 = 1.2915;
       $tk6 = 1.4975;
       $calibr = $_GET['calibre'];
+      $taxe =($result*$tk1)*0.14;
+      $taxeCalibre = $_GET['calibre']*0.14;
      if(isset($_GET['submit'])){
    //   tranch algorithme
          if($result <=100){
-            echo "<br>";
-            echo $result *$tk1+$_GET['calibre'];
+         echo"<p id = 'r2'>".$taxe.':مجموع الرسوم '."</p>";
+         echo"<p id ='r1'>".($result*$tk1)+$taxe+$_GET['calibre']+$taxeCalibre+0.740.':الواجب أداؤه'."</p>";
          }
          if($result <=150 and $result >=101){
-             echo "<br>";
              $tr1=100 *$tk1;
-             echo $tr1;
-             echo "<br>";
-             echo ($result -100) * $tk2;
-             echo "<br>";
-             echo ($result -100) * $tk2 +$tr1+$_GET['calibre'];
+             echo "<p id = 'r3'>".$tr1.':الشطر الاول'."</p>";
+             echo "<p id = 'r4'>".($result -100) * $tk2.':الشطر التاني '."</p>";
+             echo"<p id = 'r5'>".$taxe.':مجموع الرسوم '."</p>";
+             echo "<p id ='r6'>".($result -100) * $tk2 +$taxe+$_GET['calibre']+$taxeCalibre.':الواجب أداؤه'."</p>";
             
          }
          if($result <=210 and $result >=151){
-            echo $result * $tk3; +$_GET['calibre']
+            echo"<p id = 'r2'>".$taxe.':مجموع الرسوم '."</p>";
+            echo"<p id ='r1'>".($result*$tk3)+$taxe+$_GET['calibre']+$taxeCalibre.':الواجب أداؤه'."</p>";
          }
          if($result <=310 and $result >=211){
-            echo $result * $tk4; +$_GET['calibre']
+            echo"<p id = 'r2'>".$taxe.':مجموع الرسوم '."</p>";
+            echo"<p id ='r1'>".($result*$tk4)+$taxe+$_GET['calibre']+$taxeCalibre.':الواجب أداؤه'."</p>";
            
          }
          
          if($result <=510 and $result >=311){
-            echo $result * $tk5; +$_GET['calibre']
+            echo"<p id = 'r2'>".$taxe.':مجموع الرسوم '."</p>";
+            echo"<p id ='r1'>".($result*$tk5)+$taxe+$_GET['calibre']+$taxeCalibre.':الواجب أداؤه'."</p>";
          }
          if($result >=511){
-            echo $result * $tk6; +$_GET['calibre']
+            echo"<p id = 'r2'>".$taxe.':مجموع الرسوم '."</p>";
+            echo"<p id ='r1'>".($result*$tk6)+$taxe+$_GET['calibre']+$taxeCalibre.':الواجب أداؤه'."</p>";
          }
          
          
      }
  ?>
- <style>
+ <style> 
     <?php include('style.css'); ?>
    </style>
 
