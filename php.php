@@ -1,83 +1,110 @@
+
+<?php
+include 'process.php';
+error_reporting(0);
+// INSERTING DATA INTO DATABASE
+if(isset($_POST['btn'])){
+    $FirstName = $_POST['FirstName'];
+    $LastName  = $_POST['LastName'];
+    $date = $_POST['date'];
+    $department = $_POST['department'];
+    $salary = $_POST['salary'];
+    $function = $_POST['function'];
+    $matricule = $_POST['matricule'];
+    $picture = $_FILES['picture']['name'];
+    $target = "images/".basename($picture);
+    }
+  
+  if($_POST['FirstName']!="" and $_POST['LastName']!="" and $_POST['date']!="" and $_POST['department']!="" and $_POST['salary']!="" and $_POST['function']!="" and $_POST['matricule']!="" and $_FILES['picture']['name']!=""){
+    $sql="insert into `data`(FirstName,LastName,date,department,salary,function,matricule,picture)values('$FirstName','$LastName','$date','$department','$salary','$function','$matricule','$picture')";
+    $result= mysqli_query($mysqli,$sql);
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 </head>
 <body>
-   <div class = "container">
-    <form  method ="get">
-    <div class = "content">
-    <input type="number" class = "num1" name="num1" >
-    <input type="number" class = "num1" name="num2" >
-    <input type="submit"  class = "submit" name="submit" value="submit">
-    <select name="calibre" class = "calibre">
-                            <option> select calibre</option>
-                            <option value="22,65">5-10</option>
-                            <option value="37,05">15-20</option>
-                            <option value="46,20">>30 </option>
-                        </select>
-                        
-         </div>              
-         </form>
-    </div> 
-    <?php
-    
-    // when click submit calculate the numbers
-    error_reporting(0);
-    $result = $_GET['num1']-$_GET['num2'];
-      $tk1 = 0.794;
-      $tk2 = 0.883;
-      $tk3 = 0.9451;
-      $tk4 = 1.0489;
-      $tk5 = 1.2915;
-      $tk6 = 1.4975;
-      $calibr = $_GET['calibre'];
-      $taxe =($result*$tk1)*0.14;
-      $taxeCalibre = $_GET['calibre']*0.14;
-     if(isset($_GET['submit'])){
-   //   tranch algorithme
-         if($result <=100){
-         echo"<p id = 'r2'>".$taxe.':مجموع الرسوم '."</p>";
-         echo"<p id ='r1'>".($result*$tk1)+$taxe+$_GET['calibre']+$taxeCalibre+0.740.':الواجب أداؤه'."</p>";
-         }
-         if($result <=150 and $result >=101){
-             $tr1=100 *$tk1;
-             echo "<p id = 'r3'>".$tr1.':الشطر الاول'."</p>";
-             echo "<p id = 'r4'>".($result -100) * $tk2.':الشطر التاني '."</p>";
-             echo"<p id = 'r5'>".$taxe.':مجموع الرسوم '."</p>";
-             echo "<p id ='r6'>".($result -100) * $tk2 +$taxe+$_GET['calibre']+$taxeCalibre.':الواجب أداؤه'."</p>";
-            
-         }
-         if($result <=210 and $result >=151){
-            echo"<p id = 'r2'>".$taxe.':مجموع الرسوم '."</p>";
-            echo"<p id ='r1'>".($result*$tk3)+$taxe+$_GET['calibre']+$taxeCalibre.':الواجب أداؤه'."</p>";
-         }
-         if($result <=310 and $result >=211){
-            echo"<p id = 'r2'>".$taxe.':مجموع الرسوم '."</p>";
-            echo"<p id ='r1'>".($result*$tk4)+$taxe+$_GET['calibre']+$taxeCalibre.':الواجب أداؤه'."</p>";
-           
-         }
-         
-         if($result <=510 and $result >=311){
-            echo"<p id = 'r2'>".$taxe.':مجموع الرسوم '."</p>";
-            echo"<p id ='r1'>".($result*$tk5)+$taxe+$_GET['calibre']+$taxeCalibre.':الواجب أداؤه'."</p>";
-         }
-         if($result >=511){
-            echo"<p id = 'r2'>".$taxe.':مجموع الرسوم '."</p>";
-            echo"<p id ='r1'>".($result*$tk6)+$taxe+$_GET['calibre']+$taxeCalibre.':الواجب أداؤه'."</p>";
-         }
-         
-         
-     }
- ?>
- <style> 
-    <?php include('style.css'); ?>
-   </style>
+<div  id ="table" class="container my-5">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th>FirstName</th>
+        <th>LastName</th>
+        <th>registration number</th>
+        <th>date</th>
+        <th>department</th>
+        <th>salary</th>
+        <th>function</th>
+        <th>Picture</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <!-- INSERTING DATA INTO TABLE -->
+    <tbody>
+      
+      <?php
+      $sql ="select * from `data`";
+      $result = mysqli_query($mysqli,$sql);
+      if ($result) {
+       while($row = mysqli_fetch_assoc($result)){
+        $id = $row['id'];
+        $FirstName = $row['FirstName'];
+        $LastName  = $row['LastName'];
+        $matricule = $row['matricule'];
+        $date = $row['date'];
+        $department = $row['department'];
+        $salary = $row['salary'];
+        $function = $row['function'];
+      	echo "<img src='images/".$row['picture']."' >";
+        echo'
+        <tr>
+        <th scope="row">'.$id.'</th>
+        <td>'.$FirstName.'</td>
+        <td>'.$LastName.'</td>
+        <td>'.$matricule.'</td>
+        <td>'.$date.'</td>
+        <td>'.$department.'</td>
+        <td>'.$salary.'</td>
+        <td>'.$function.'</td>
+        <td>'.$picture.'</td>
+        <td>
+          <button type="button"  class ="upbtn"class="btn btn-primary"><a href="edit.php? editid='.$id.'"class="text-light"> 
+            Edit
+            </a></button> 
+        
+          <button type="button"  name ="delete"class="btn btn-danger"><a href="delete.php? deleteid='.$id.'"class ="text-light">
+           Delete 
+           </a></button>
+        </td>
+        </tr>';
+       }
+      }
+     
+      ?>
 
+    </tbody>
+  </table>
 
+</div>
+<form  class ='form'  method ="POST" action="php.php" enctype="multipart/form-data">
+<input type="text" name ="matricule" placeholder ="Enter your registration number">
+<input type="text" name ="FirstName" placeholder ="Enter your name">
+<input type="text" name ="LastName"placeholder ="Enter your LastName ">
+<input type="date" name ="date" placeholder="Enter you date of birth  ">
+<input type="text" name ="department"  placeholder ="Enter your department ">
+<input type="text" name ="salary" placeholder =" Enter your salary" >
+<input type="text" name ="function" placeholder =" Enter your function ">
+<input type="file" name ="picture" value =" ">
+<button type="submit" id ='btn' name ="btn">Add</button>
+</form>
 </body>
 </html>
