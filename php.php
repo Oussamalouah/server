@@ -2,7 +2,7 @@
 <?php
 include 'process.php';
 error_reporting(0);
-// INSERTING DATA INTO DATABASE
+// INSERTING DATA INTO DATABASEe
 if(isset($_POST['btn'])){
     $FirstName = $_POST['FirstName'];
     $LastName  = $_POST['LastName'];
